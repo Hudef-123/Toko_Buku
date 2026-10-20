@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pustaka Hijau - Toko Buku Online & Literasi</title>
+    <style>
+        :root {
+            --primary-green: #2d6a4f;
+            --primary-hover: #1b4332;
+            --soft-green: #52b788;
+            --light-green-bg: #f4f9f4;
+            --warm-white: #faf9f6;
+            --card-white: #ffffff;
+            --text-dark: #2b2d42;
+            --text-muted: #6c757d;
+            --accent-gold: #d4a373;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(45, 106, 79, 0.08);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--warm-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(250, 249, 246, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(45, 106, 79, 0.1);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 76px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary-green);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cart-icon-btn {
+            position: relative;
+            background: var(--light-green-bg);
+            border: 1px solid rgba(45, 106, 79, 0.15);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--primary-green);
+            transition: var(--transition);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 0.72rem;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--warm-white);
+        }
+
+        .hero {
+            padding: 4.5rem 0 4rem;
+            background: linear-gradient(180deg, var(--light-green-bg) 0%, var(--warm-white) 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(82, 183, 136, 0.15);
+            color: var(--primary-green);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(45, 106, 79, 0.15);
+        }
+
+        .hero-title {
+            font-size: 2.85rem;
+            line-height: 1.2;
+            color: var(--primary-green);
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-title span { color: var(--accent-gold); }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 14px rgba(45, 106, 79, 0.25);
+        }
+
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .hero-card-stack {
+            background: var(--card-white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-tag {
+            color: var(--soft-green);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.1rem;
+            color: var(--primary-green);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .services-section { padding: 5rem 0; background: var(--warm-white); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--card-white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--light-green-bg);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .catalog-section { padding: 4rem 0 5rem; background: var(--light-green-bg); }
+        .catalog-filter {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--card-white);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .book-card {
+            background: var(--card-white);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .book-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+
+        .book-cover {
+            height: 180px;
+            background: var(--light-green-bg);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+        }
+
+        .calculator-section { padding: 5rem 0; background: var(--warm-white); }
+        .calc-card {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #1b4332 100%);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            color: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            outline: none;
+            background: white;
+        }
+
+        .contact-section { padding: 5rem 0; background: var(--light-green-bg); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2.5rem; }
+
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: var(--card-white);
+            width: 100%; max-width: 480px;
+            border-radius: var(--radius-lg); padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .toast {
+            position: fixed; bottom: 25px; right: 25px;
+            background: var(--primary-green); color: white;
+            padding: 12px 24px; border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md); font-weight: 600;
+            z-index: 3000; transform: translateY(100px); opacity: 0; transition: var(--transition);
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        footer { background: #1b4332; color: white; padding: 3rem 0 1.5rem; text-align: center; }
+
+        @media (max-width: 992px) {
+            .hero-grid, .calc-card, .contact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="#" class="brand-logo">
+                <span>📚 Pustaka Hijau</span>
+            </a>
+            <nav class="nav-links" id="navMenu">
+                <a href="#hero" class="active">Beranda</a>
+                <a href="#layanan">Layanan</a>
+                <a href="#katalog">Katalog Buku</a>
+                <a href="#kalkulator">Kalkulator Order</a>
+                <a href="#kontak">Kontak</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="cart-icon-btn" onclick="openCartModal()" aria-label="Keranjang">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="container hero-grid">
+            <div>
+                <div class="hero-badge">📖 Toko Buku Online & Literasi Lengkap</div>
+                <h1 class="hero-title">Jelajahi Dunia Lewat <span>Buku Pilihan</span></h1>
+                <p class="hero-subtitle">Menyediakan berbagai koleksi buku fiksi, non-fiksi, sains, dan pengembangan diri terlengkap dengan jaminan 100% original dan pengiriman cepat.</p>
+                <div style="display:flex; gap:1rem;">
+                    <a href="#katalog" class="btn btn-primary">📚 Lihat Katalog Buku</a>
+                    <a href="#kalkulator" class="btn btn-outline">✨ Hitung Estimasi Belanja</a>
+                </div>
+            </div>
+            <div class="hero-card-stack">
+                <div style="display:flex; gap:1rem; align-items:center; background:var(--light-green-bg); padding:1rem; border-radius:12px;">
+                    <span style="font-size:2.5rem;">📘</span>
+                    <div>
+                        <h4 style="color:var(--primary-green);">Rekomendasi Minggu Ini</h4>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">Filosofi Teras - Henry Manampiring</p>
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); text-align:center; margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border-color);">
+                    <div><div style="font-weight:800; color:var(--primary-green);">15K+</div><div style="font-size:0.75rem; color:var(--text-muted);">Buku Terjual</div></div>
+                    <div><div style="font-weight:800; color:var(--primary-green);">100%</div><div style="font-size:0.75rem; color:var(--text-muted);">Buku Original</div></div>
+                    <div><div style="font-weight:800; color:var(--primary-green);">4.9★</div><div style="font-size:0.75rem; color:var(--text-muted);">Rating Pembaca</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="layanan" class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Layanan Kami</span>
+                <h2 class="section-title">Kenyamanan Berbelanja Buku Terbaik</h2>
+                <p class="section-description">Kami siap melayani kebutuhan literasi Anda dengan standar kualitas layanan terdepan.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🚚</div>
+                    <h3>Pengiriman Kilat</h3>
+                    <p>Paket buku dibungkus bubble wrap tebal dan dikirimkan dengan aman sampai ke alamat Anda secara cepat.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📖</div>
+                    <h3>Koleksi Lengkap & Ori</h3>
+                    <p>Seluruh katalog buku dijamin 100% original langsung dari penerbit resmi nasional dan internasional.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎁</div>
+                    <h3>Sampul & Kartu Ucapan</h3>
+                    <p>Layanan tambahan pemesanan sampul mika dan pambungkus kado beserta kartu ucapan untuk hadiah istimewa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="katalog" class="catalog-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Koleksi Pilihan</span>
+                <h2 class="section-title">Katalog Buku Populer</h2>
+                <p class="section-description">Temukan buku kesukaan Anda dari berbagai genre favorit pembaca.</p>
+            </div>
+            <div class="catalog-filter">
+                <button class="filter-btn active" onclick="filterBooks('all', this)">Semua Buku</button>
+                <button class="filter-btn" onclick="filterBooks('fiksi', this)">Fiksi</button>
+                <button class="filter-btn" onclick="filterBooks('non-fiksi', this)">Non-Fiksi</button>
+                <button class="filter-btn" onclick="filterBooks('pengembangan', this)">Pengembangan Diri</button>
+            </div>
+            <div class="book-grid" id="bookGrid">
+                <div class="book-card" data-category="pengembangan">
+                    <div class="book-cover">📕<span style="position:absolute; top:10px; left:10px; background:var(--primary-green); color:white; font-size:0.7rem; padding:3px 8px; border-radius:4px;">Bestseller</span></div>
+                    <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.2rem;">Atomic Habits</div>
+                    <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.8rem;">Oleh: James Clear</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:0.8rem; border-top:1px dashed var(--border-color);">
+                        <div style="font-weight:800; color:var(--primary-green);">Rp 108.000</div>
+                        <button class="btn btn-primary" style="padding:6px 12px; font-size:0.8rem;" onclick="addToCart('Atomic Habits', 108000)">+ Keranjang</button>
+                    </div>
+                </div>
+                <div class="book-card" data-category="fiksi">
+                    <div class="book-cover">📗<span style="position:absolute; top:10px; left:10px; background:var(--accent-gold); color:white; font-size:0.7rem; padding:3px 8px; border-radius:4px;">Favorit</span></div>
+                    <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.2rem;">Bumi Manusia</div>
+                    <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.8rem;">Oleh: Pramoedya Ananta Toer</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:0.8rem; border-top:1px dashed var(--border-color);">
+                        <div style="font-weight:800; color:var(--primary-green);">Rp 135.000</div>
+                        <button class="btn btn-primary" style="padding:6px 12px; font-size:0.8rem;" onclick="addToCart('Bumi Manusia', 135000)">+ Keranjang</button>
+                    </div>
+                </div>
+                <div class="book-card" data-category="non-fiksi">
+                    <div class="book-cover">📘</div>
+                    <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.2rem;">Sapiens: Riwayat Singkat Umat Manusia</div>
+                    <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.8rem;">Oleh: Yuval Noah Harari</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:0.8rem; border-top:1px dashed var(--border-color);">
+                        <div style="font-weight:800; color:var(--primary-green);">Rp 125.000</div>
+                        <button class="btn btn-primary" style="padding:6px 12px; font-size:0.8rem;" onclick="addToCart('Sapiens', 125000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kalkulator" class="calculator-section">
+        <div class="container">
+            <div class="calc-card">
+                <div>
+                    <span style="color:var(--accent-gold); font-weight:700; font-size:0.85rem; text-transform:uppercase;">Kalkulator Estimasi Belanja</span>
+                    <h2 style="font-size:2rem; font-weight:800; margin:0.5rem 0 1rem;">Hitung Total Pembelian Buku & Layanan</h2>
+                    <p style="opacity:0.9; font-size:0.95rem; line-height:1.6;">Pilih opsi buku dan variasi bungkus hadiah untuk mendapatkan estimasi total biaya secara instan.</p>
+                </div>
+                <div style="background:white; color:var(--text-dark); padding:2rem; border-radius:16px;">
+                    <div class="form-group">
+                        <label>Pilih Paket Buku</label>
+                        <select id="book-type" class="form-control" onchange="calculatePrice()">
+                            <option value="108000">Atomic Habits (Rp 108.000)</option>
+                            <option value="135000">Bumi Manusia (Rp 135.000)</option>
+                            <option value="125000">Sapiens (Rp 125.000)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pilihan Sampul / Pembungkus</label>
+                        <select id="wrapping-type" class="form-control" onchange="calculatePrice()">
+                            <option value="5000">Sampul Plastik Mika (Rp 5.000)</option>
+                            <option value="15000">Kertas Kado & Pita (Rp 15.000)</option>
+                            <option value="0">Tanpa Sampul / Standard (Rp 0)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tambahan / Kartu Ucapan</label>
+                        <select id="addons" class="form-control" onchange="calculatePrice()">
+                            <option value="5000">Bookmark Eksklusif + Kartu Ucapan (Rp 5.000)</option>
+                            <option value="0">Tanpa Tambahan (Rp 0)</option>
+                        </select>
+                    </div>
+                    <div style="margin: 1.5rem 0; padding-top: 1rem; border-top: 1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:700;">Total Estimasi:</span>
+                        <span id="calcTotal" style="font-weight:800; color:var(--primary-green); font-size:1.2rem;">Rp 118.000</span>
+                    </div>
+                    <button class="btn btn-primary" style="width:100%;" onclick="orderCustomBook()">Pesan Paket Buku Ini</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Kontak & Lokasi</span>
+                <h2 class="section-title">Hubungi Toko Buku Kami</h2>
+            </div>
+            <div class="contact-grid">
+                <div style="background:white; padding:2rem; border-radius:16px; border:1px solid var(--border-color);">
+                    <h3 style="color:var(--primary-green); margin-bottom:1rem;">📍 Informasi Toko</h3>
+                    <p style="color:var(--text-muted); margin-bottom:0.8rem;"><strong>Alamat:</strong> Jl. Literasi No. 45, Kota Hijau</p>
+                    <p style="color:var(--text-muted); margin-bottom:0.8rem;"><strong>WhatsApp:</strong> +62 812-3456-7890</p>
+                    <p style="color:var(--text-muted);"><strong>Jam Operasional:</strong> Setiap Hari 08.00 - 21.00 WIB</p>
+                </div>
+                <div style="background:white; padding:2rem; border-radius:16px; border:1px solid var(--border-color);">
+                    <h3 style="color:var(--primary-green); margin-bottom:1rem;">Kirim Pesan Cepat</h3>
+                    <form onsubmit="handleContact(event)">
+                        <div class="form-group"><input type="text" class="form-control" placeholder="Nama Anda" required></div>
+                        <div class="form-group"><input type="email" class="form-control" placeholder="Alamat Email" required></div>
+                        <div class="form-group"><textarea class="form-control" rows="3" placeholder="Pesan atau judul buku yang dicari..." required></textarea></div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Pustaka Hijau. Seluruh hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <h3 style="color:var(--primary-green);">🛒 Keranjang Belanja</h3>
+                <button onclick="closeCartModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            <div id="cartItemsList"><p style="color:var(--text-muted); text-align:center; padding:1.5rem;">Keranjang kosong.</p></div>
+            <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border-color); display:flex; justify-content:space-between;">
+                <strong>Total:</strong> <span id="cartTotalPrice" style="color:var(--primary-green); font-weight:800;">Rp 0</span>
+            </div>
+            <button onclick="checkoutCart()" class="btn btn-primary" style="width:100%; margin-top:1rem;">Checkout via WhatsApp</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toastNotification">Buku berhasil ditambahkan!</div>
+
+    <script>
+        let cart = [];
+
+        function calculatePrice() {
+            const bookVal = parseInt(document.getElementById('book-type').value) || 0;
+            const wrapVal = parseInt(document.getElementById('wrapping-type').value) || 0;
+            const addonVal = parseInt(document.getElementById('addons').value) || 0;
+            const total = bookVal + wrapVal + addonVal;
+            document.getElementById('calcTotal').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+        calculatePrice();
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartUI();
+            showToast(`"${title}" ditambahkan ke keranjang.`);
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            const list = document.getElementById('cartItemsList');
+            const totalElem = document.getElementById('cartTotalPrice');
+            if (cart.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:1.5rem;">Keranjang kosong.</p>';
+                totalElem.innerText = 'Rp 0';
+                return;
+            }
+            let html = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `<div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0; border-bottom:1px dashed #eee;">
+                    <div><div style="font-weight:600; font-size:0.9rem;">${item.title}</div><div style="color:var(--primary-green); font-size:0.8rem;">Rp ${item.price.toLocaleString('id-ID')}</div></div>
+                    <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:0.8rem;">Hapus</button>
+                </div>`;
+            });
+            list.innerHTML = html;
+            totalElem.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function openCartModal() { document.getElementById('cartModal').classList.add('active'); }
+        function closeCartModal() { document.getElementById('cartModal').classList.remove('active'); }
+
+        function checkoutCart() {
+            if (cart.length === 0) { showToast('Keranjang masih kosong!'); return; }
+            let text = 'Halo Pustaka Hijau, saya ingin memesan buku:\n\n';
+            let total = 0;
+            cart.forEach((item, i) => {
+                text += `${i + 1}. ${item.title} - Rp ${item.price.toLocaleString('id-ID')}\n`;
+                total += item.price;
+            });
+            text += `\nTotal: Rp ${total.toLocaleString('id-ID')}`;
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function orderCustomBook() {
+            const book = document.getElementById('book-type').selectedOptions[0].text;
+            const wrap = document.getElementById('wrapping-type').selectedOptions[0].text;
+            const addon = document.getElementById('addons').selectedOptions[0].text;
+            const total = document.getElementById('calcTotal').innerText;
+            const text = `Halo Pustaka Hijau, saya ingin memesan paket buku:\n- Buku: ${book}\n- Sampul: ${wrap}\n- Tambahan: ${addon}\n- Total: ${total}`;
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function filterBooks(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.book-card').forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            showToast('Pesan berhasil terkirim!');
+            e.target.reset();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
